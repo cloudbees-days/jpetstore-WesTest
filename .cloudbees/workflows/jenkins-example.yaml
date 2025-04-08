@@ -1,0 +1,31 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: Jenkins Example
+on:
+  workflow_dispatch:
+permissions:
+  scm-token-own: read
+  scm-token-org: read
+  id-token: write
+jobs:
+  ComplexPipeline1:
+    steps:
+      - name: Run Jenkins Job
+        with:
+          url: https://sda.preview.cb-demos.io/bcauthen-demos-mc-1/
+          username: ${{ secrets.WES_JENKINS_USERNAME }}
+          token: ${{ secrets.WES_JENKINS_TOKEN }}
+          job-name: Complex-Pipeline
+        uses: cloudbees-io/jenkins-run-job@v2
+        continue-on-error: true
+  NestedPipeline:
+    steps:
+      - name: Run Nested Jenkins Pipelines
+        kind: test
+        uses: cloudbees-io/jenkins-run-job@v2
+        with:
+          url: https://sda.preview.cb-demos.io/bcauthen-demos-mc-1/
+          username: ${{ secrets.WES_JENKINS_USERNAME }}
+          token: ${{ secrets.WES_JENKINS_TOKEN }}
+          job-name: JenkinsPipeline1
+    needs: ComplexPipeline1
