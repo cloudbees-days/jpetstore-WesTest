@@ -29,7 +29,7 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           org-name: cloudbees-days
-          repo-name: jpetstore-WesTest
+          repo-name: hackers-Wes4
           branch-name: main
           workflow-name: test-and-build-image2
           test-type: JUnit
