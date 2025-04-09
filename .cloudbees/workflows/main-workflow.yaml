@@ -22,18 +22,6 @@ jobs:
           username: ${{ secrets.WES_JENKINS_USERNAME }}
           token: ${{ secrets.WES_JENKINS_TOKEN }}
           job-name: Complex-Pipeline
-      - name: Run GHA Workflow
-        kind: test
-        uses: cloudbees-io/ghactions-run-workflow@v2
-        continue-on-error: true
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          org-name: cloudbees-days
-          repo-name: hackers-Wes4
-          branch-name: main
-          workflow-name: test-and-build-image2
-          test-type: JUnit
-          test-result-location: junit.xml
       - name: Get source code
         uses: cloudbees-io/checkout@v1
         continue-on-error: true
